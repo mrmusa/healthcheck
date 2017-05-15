@@ -1,0 +1,17 @@
+{
+  "name": "healthcheck",
+  "version": "1.0.0",
+  "description": "",
+  "main": "project2.js",
+  "scripts": {
+    "test": "mkdir -p status/assets && mocha project2.js --reporter mochawesome --reporter-options reportDir=status,reportFilename=homepage,reportPageTitle=homepage-healthcheck-report,reportTitle=healthcheck,enableCode=false,autoOpen=true,timestamp=yyyy-mm-dd_HH"
+  },
+  "author": "Musa Siddeeq",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^3.4.1",
+    "mochawesome": "^2.2.0",
+    "moment": "^2.18.1",
+    "nightmare": "^2.10.0"
+  }
+}
