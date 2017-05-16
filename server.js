@@ -82,11 +82,12 @@ app.get('/', (req, res) => {
               pending: json.stats.pending,
               timeFromNow: moment(json.stats.end).fromNow(),
             },
-            allTests: json.allTests.map(({ fail, context: _context = '[]' }) => {
+            allTests: json.allTests.map(({ title, fullTitle, fail, context: _context = '[]' }) => {
               const context = vm.runInThisContext(`context = ${_context};`);
               const [appUrl = '#', _thumb] = context;
               const thumb = _thumb ? path.join('reports', 'healthcheck', _thumb.replace(/assets\//ig, 'assets/thumbs/')) : 'http://placehold.it/220x165';
               return {
+                group: fullTitle.replace(title, '').trim(),
                 fail,
                 context: { thumb, appUrl }
               };
@@ -111,13 +112,18 @@ app.get('/', (req, res) => {
         ]
       };
 
+      const failingGroups = reports[0].allTests.filter(test => test.fail).map(({ group }) => group);
       const status = reports[0].stats.failures ? 'failed' : 'success';
+      const description = reports[0].stats.failures
+        ? `${reports[0].stats.failures} groups have failing app homepages -- ${failingGroups.join('; ')}`
+        : `Yaay! All groups have app homepages which load!!`;
 
       res.render('healthcheck', {
         og: {
           url: 'https://gtjan2017-healthcheck.herokuapp.com',
           title: 'Project 2 Health Reports',
-          description: 'Project 2 health check reports health and features for each app deployment and Git repo',
+          description,
+          altDescription: 'Project 2 health check reports health and features for each app deployment and Git repo',
           siteName: 'Georgia Tech Coding Bootcamp',
           image: giphy[status][Math.floor(Math.random() * 100) % 4]
         },
