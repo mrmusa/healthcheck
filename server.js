@@ -14,6 +14,7 @@ const readdir = Bluebird.promisify(fs.readdir);
 const readFile = Bluebird.promisify(fs.readFile);
 const path = require('path');
 const sharp = require('sharp');
+const proxy = require('http-proxy-middleware');
 
 // Sets up the Express App
 // =============================================================
@@ -26,6 +27,13 @@ app.set('view engine', 'handlebars');
 
 // Static directory
 app.use(express.static('./public'));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/reports', proxy({
+    target: 'https://s3.amazonaws.com/gtjan2017/healthcheck',
+    changeOrigin: true
+  }));
+}
 
 // thumbnail generator with static file cache
 app.use('/reports(/healthcheck|authcheck|teamcheck|mvccheck|testcheck|linkcheck)/assets/thumbs', (req, res) => {
