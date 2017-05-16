@@ -58,4 +58,6 @@ typings/
 .env
 
 # ignore generated reports
-public/**.png
+public/assets/*.png
+public/reports/healthcheck/assets/*.png
+public/reports/healthcheck/assets/thumbs/*.png

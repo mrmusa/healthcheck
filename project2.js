@@ -101,7 +101,7 @@ describe('Project 2 Health Check', function () {
           Nightmare({ show : false })
             .goto(app)
             .viewport(1024, 768)
-            .screenshot(path.join(__dirname, 'public', imagePath))
+            .screenshot(path.join(__dirname, 'public', 'reports', 'healthcheck', imagePath))
             .evaluate(() => document.title)
             .then(title => {
               const failed = ['Heroku | Welcome to your new app!', 'Application Error', 'Error'].includes(title);
