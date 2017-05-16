@@ -15,7 +15,7 @@ const projects = [
     team: 'Tab Nabbers',
     members: 'cody, eric g, esterling, ashley',
     repo: 'https://github.com/accimeesterlin/Tab-Nabbers.git',
-    app: 'https://bootcruit.herokuapp.com/signup'
+    app: 'https://bootcruit.herokuapp.com'
   },
   {
     team: 'Strict Mode',
@@ -89,8 +89,8 @@ const projects = [
 describe('Project 2 Health Check', function () {
   projects.forEach(({team, members, repo, app}, index) => {
     describe(`${team}: ${members}`, function () {
-      this.timeout(10000);
-      it('should render render an app home page', function (done) {
+      this.timeout(20000);
+      it('should render an app home page', function (done) {
         if (app) {
           const imagePath = path.join('assets', `${('00' + index).slice(-2)}-${team.replace(/ /ig, '-')}_${moment().format('YYYY-MM-DD_HH')}.png`);
           // context can be a url and the report will create a link
@@ -98,10 +98,10 @@ describe('Project 2 Health Check', function () {
           // context can be an image url and the report will show it inline
           addContext(this, imagePath);
 
-          Nightmare({ show : true })
+          Nightmare({ show : false })
             .goto(app)
             .viewport(1024, 768)
-            .screenshot(path.join(__dirname, 'status', imagePath))
+            .screenshot(path.join(__dirname, 'public', imagePath))
             .evaluate(() => document.title)
             .then(title => {
               const failed = ['Heroku | Welcome to your new app!', 'Application Error', 'Error'].includes(title);

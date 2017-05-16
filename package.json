@@ -2,16 +2,29 @@
   "name": "healthcheck",
   "version": "1.0.0",
   "description": "",
-  "main": "project2.js",
+  "main": "server.js",
   "scripts": {
-    "test": "mkdir -p status/assets && mocha project2.js --reporter mochawesome --reporter-options reportDir=status,reportFilename=homepage,reportPageTitle=homepage-healthcheck-report,reportTitle=healthcheck,enableCode=false,autoOpen=true,timestamp=yyyy-mm-dd_HH"
+    "test:healthcheck": "mkdir -p public/reports/healthcheck && mocha project2.js --reporter mochawesome --reporter-options reportDir=public/reports/healthcheck,reportFilename=report,reportPageTitle=healthcheck-report,reportTitle=healthcheck,enableCode=false,autoOpen=true,timestamp=yyyy-mm-dd_HH",
+    "test": "mkdir -p public/assets/thumbs && npm-run-all --parallel test:healthcheck",
+    "dev": "nodemon --ext js,handlebars server.js"
   },
   "author": "Musa Siddeeq",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.0",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
     "mocha": "^3.4.1",
     "mochawesome": "^2.2.0",
     "moment": "^2.18.1",
-    "nightmare": "^2.10.0"
+    "nightmare": "^2.10.0",
+    "npm-run-all": "^4.0.2",
+    "sharp": "^0.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "engines": {
+    "node": "7.6.0"
   }
 }

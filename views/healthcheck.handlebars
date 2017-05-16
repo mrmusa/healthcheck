@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ og.title }} | {{ og.siteName }}</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <meta property="og:url" content="{{ og.url }}"/>
+    <meta property="og:title" content="{{ og.title }}"/>
+    <meta property="og:description" content="{{ og.description }}"/>
+    <meta property="og:site_name" content="{{ og.siteName }}"/>
+    <meta property="og:image" content="{{ og.image }}"/>
+</head>
+<body>
+<div class="ui container">
+    <div class="ui large feed">
+        {{#each reports}}
+            {{#if @first }}
+                <div class="event">
+                    <div class="label">
+                        {{#if this.stats.failures }}
+                            <i class="red warning circle icon"></i>
+                        {{else}}
+                            <i class="green check circle icon"></i>
+                        {{/if}}
+                    </div>
+                    <div class="content">
+                        <div class="summary">
+                            {{ this.stats.failures }} failed, {{ this.stats.passes }} passed, {{ this.stats.pending }} pending
+                            <div class="date">
+                                {{ this.stats.timeFromNow }}
+                            </div>
+                        </div>
+                        <div class="extra images">
+                            <div class="ui seven column grid">
+                                {{#each this.allTests}}
+                                    <div class="column">
+                                        <div class="ui bordered image">
+                                            {{#if this.fail }}
+                                                <a class="ui red right corner label small" href="{{ this.context.appUrl }}" target="_blank">
+                                                    <i class="warning circle icon"></i>
+                                                </a>
+                                            {{else}}
+                                                <a class="ui green right corner label small" href="{{ this.context.appUrl }}" target="_blank">
+                                                    <i class="check circle icon"></i>
+                                                </a>
+                                            {{/if}}
+                                            <img style="margin: 0" src="{{ this.context.thumb }}">
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div class="meta">
+                            <a class="like" href="{{ this.meta.reportUrl }}">
+                                <i class="tasks icon"></i> Full Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <div class="event">
+                    <div class="label">
+                        {{#if this.stats.failures }}
+                            <i class="red warning circle icon"></i>
+                        {{else}}
+                            <i class="green check circle icon"></i>
+                        {{/if}}
+                    </div>
+                    <div class="content">
+                        <div class="summary">
+                            {{ this.stats.failures }} failed, {{ this.stats.passes }} passed, {{ this.stats.pending }} pending
+                            <div class="date">
+                                {{ this.stats.timeFromNow }}
+                            </div>
+                        </div>
+                        <div class="extra text">
+                            <!--I'm having a BBQ this weekend. Come by around 4pm if you can.-->
+                        </div>
+                        <div class="meta">
+                            <a class="like" href="{{ this.meta.reportUrl }}">
+                                <i class="tasks icon"></i> Full Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+</div>
+</body>
+</html>
