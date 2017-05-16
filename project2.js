@@ -62,8 +62,8 @@ const projects = [
   {
     team: 'Massive Confection',
     members: 'nooshin, mike b, michelle, jackie',
-    repo: 'https://github.com/jackie2017/studentSearch.git',
-    app: ""
+    repo: 'https://github.com/mikesbass/studentSearch.git',
+    app: "https://mysterious-island-39661.herokuapp.com/"
   },
   {
     team: 'File Jackers',
@@ -97,6 +97,12 @@ describe('Project 2 Health Check', function () {
           addContext(this, app);
           // context can be an image url and the report will show it inline
           addContext(this, imagePath);
+
+          addContext(this, repo);
+
+          addContext(this, team);
+
+          addContext(this, members);
 
           Nightmare({ show : false })
             .goto(app)

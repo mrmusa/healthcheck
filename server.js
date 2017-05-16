@@ -84,12 +84,12 @@ app.get('/', (req, res) => {
             },
             allTests: json.allTests.map(({ title, fullTitle, fail, context: _context = '[]' }) => {
               const context = vm.runInThisContext(`context = ${_context};`);
-              const [appUrl = '#', _thumb] = context;
+              const [appUrl = '#', _thumb, repoUrl, team, members ] = context;
               const thumb = _thumb ? path.join('reports', 'healthcheck', _thumb.replace(/assets\//ig, 'assets/thumbs/')) : 'http://placehold.it/220x165';
               return {
                 group: fullTitle.replace(title, '').trim(),
                 fail,
-                context: { thumb, appUrl }
+                context: { thumb, appUrl, repoUrl, team, members }
               };
             })
           };
