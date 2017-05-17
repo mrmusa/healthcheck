@@ -39,7 +39,7 @@ const projects = [
     team: 'Aluminum Falcons',
     members: 'jesus, seila, roberto, sandy',
     repo: 'https://github.com/91integ25/Aluminum_falcons',
-    app: 'https://cryptic-cove-45695.herokuapp.com/'
+    app: 'https://limitless-everglades-23900.herokuapp.com/'
   },
   {
     team: 'Fighting Calypso Cookies',
